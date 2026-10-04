@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -e
+
+sudo apt update
+sudo apt install -y software-properties-common git
+sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install -y python3.12 python3.12-venv
+
+# Use existing test dir, or create it
+[ -d ~/test ] || mkdir -p ~/test
+cd ~/test
+
+# Clone only if the repo isn't already there
+if [ ! -d MHDDoS ]; then
+    git clone https://github.com/MatrixTM/MHDDoS.git
+fi
+cd MHDDoS
+
+# Create venv only if it doesn't exist
+if [ ! -d venv ]; then
+    python3.12 -m venv venv
+fi
+source venv/bin/activate
+
+pip install -r requirements.txt
+venv/bin/python3 start.py TCP ipaddr:8000 100 1000
