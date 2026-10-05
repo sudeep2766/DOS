@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+
+cd ~/test
+cd MHDDoS
+
+# Create venv only if it doesn't exist
+if [ ! -d venv ]; then
+    python3.12 -m venv venv
+fi
+source venv/bin/activate
+
+if venv/bin/pip list | grep -q "PyRoxy"; then
+    if [ -n "$1" ]; then
+        # $1 is NOT empty (-n), so use the user-provided argument
+        venv/bin/python3 start.py TCP "$1:8000" 100 1000
+    else
+        # $1 IS empty, so fall back to the default IP
+        venv/bin/python3 start.py TCP 100.104.75.107:8000 100 1000
+    fi
+else
+    echo "Modules not installed"
+fi
