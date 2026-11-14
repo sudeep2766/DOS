@@ -7,10 +7,10 @@ First created a rest api with py, then the seed.py
 
 dos file is just a js file that generates traffic -> test.js
 
-Run the js by:
+Run the js by (also specify the ip addr):
 
 ```bash
-k6 run test.js (also specify the ip addr)
+k6 run test.js 
 ```
 
 installation of k6 on arch:
